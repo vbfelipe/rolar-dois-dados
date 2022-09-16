@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" 
+            href="style.css">
+<script>
+//Função para mostrar a imagem do primeiro dado.
+function display_image1(src, width, height, alt) {
+    var b = document.getElementById("imgdado1");
+    b.innerHTML=""; 
+    var a = document.createElement("img");
+    a.id = "dado"
+    a.src = src;
+    a.width = width;
+    a.height = height;
+    a.alt = alt;
+    b.appendChild(a);
+}
+//Função para mostrar a imagem do segundo dado.
+function display_image2(src, width, height, alt) {
+    var b = document.getElementById("imgdado2");
+    b.innerHTML=""; 
+    var a = document.createElement("img");
+    a.id = "dado2"
+    a.src = src;
+    a.width = width;
+    a.height = height;
+    a.alt = alt;
+    b.appendChild(a);
+}
+//Função para criar a animação de "rolar" os dados.
+function rolling(rolling){
+    if (rolling == true){
+        document.getElementById("roll").style.display="block";
+        document.getElementById("dado1box").style.display="none";
+        document.getElementById("dado2box").style.display="none";
+        
+    }else{
+        document.getElementById("roll").style.display="none";
+        document.getElementById("dado1box").style.display="block";
+        document.getElementById("dado2box").style.display="block";
+    }
+
+}
+//Função que gera o valor dos dados randomicamente e em seguida a função de aguardar x segundos e mostrar as imagens.
+function rolarDados(){
+    var dado1 = document.getElementById("dado1");
+    var dado2 = document.getElementById("dado2");
+    var status = document.getElementById("status");
+    var d1 = Math.floor(Math.random() * 6) + 1;
+    var d2 = Math.floor(Math.random() * 6) + 1;
+    var dadosTotal = d1 + d2;
+    rolling(true)
+    
+    setTimeout(() => {
+
+        dado1.innerHTML = d1;
+        dado2.innerHTML = d2;
+    
+        let imgName =  "face" + d1 + "\.jpg";
+        display_image1(imgName, 150, 150, imgName)
+
+        imgName =  "face" + d2 + "\.jpg";
+        display_image2(imgName, 150, 150, imgName)
+
+        rolling(false)
+    
+    },800);
+}
+</script>
+</head>
+<body>
+
+<button onclick="rolarDados()">Rolar dados</button>
+<h2 id="status"></h2>
+
+<div class="imgdados" style="display:flex;">
+    <div id="dado1box" style="display: none">
+    <div id="dado1" class="dado">0</div>
+    <div id="imgdado1" ></div>
+</div>
+
+<div id="dado2box" style="display: none;align-items:center;">
+    <div id="dado2" class="dado">0</div>
+    <div id="imgdado2" ></div>
+</div>
+
+<div id="roll" style="display:none;">
+    <img src="roll.gif" alt="">
+</div>
+
+</body>
+</html>
